@@ -11,14 +11,16 @@ import {
 import _ from 'lodash';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {signIn, signOut, remove} from '../../actions/UserAction';
+import {signIn, signOut, remove} from 'actions/UserAction';
 
-import User from '../../models/User';
+import User from 'models/User';
 
 import styles from './styles';
-import Reducers from 'src/models/Reducers';
+import Reducers from 'models/Reducers';
 
 export default function SignIn() {
+  const textInput: any = {};
+
   const dispatch = useDispatch();
 
   const user = useSelector<Reducers, User>(state => state.user);
@@ -45,16 +47,37 @@ export default function SignIn() {
         <View style={styles.textInputContainer}>
           <TextInput
             key="signIn_email"
+            autoCapitalize='none'
+            autoCorrect={false}
+            returnKeyType = { "next" }
+            onSubmitEditing={() => {
+              focusNextTextInput("two");
+            }}
+            blurOnSubmit={false}
             editable={_.isEmpty(user)}
             style={styles.textInput}
             onChangeText={updateEmail}
             placeholder="exemplo@email.com"
             value={userDTO.email}
+            ref={input => {
+              textInput["one"] = input;
+            }}
           />
         </View>
         <View style={styles.textInputContainer}>
           <TextInput
             key="signIn_senha"
+            autoCapitalize='none'
+            autoCompleteType='password'
+            autoCorrect={false}
+            returnKeyType = { "done" }
+            onSubmitEditing={(e) =>  {
+              updatePassword(e.nativeEvent.text)
+              _signIn();
+            }}
+            ref={input => {
+              textInput["two"] = input;
+            }}
             editable={_.isEmpty(user)}
             style={styles.textInput}
             secureTextEntry={true}
@@ -93,6 +116,10 @@ export default function SignIn() {
       </View>
     </ScrollView>
   );
+
+  function focusNextTextInput(id: any) {
+    textInput[id].focus();
+  }
 
   function updateEmail(value: string) {
     setUserDTO({...userDTO, email: value});

@@ -1,12 +1,12 @@
-import { GET_CATEGORIES, GET_CARDS_CATEGORIES } from "src/actions/CategoriesAction";
+import { GET_CATEGORIES, GET_CARDS_CATEGORIES } from "actions/CategoriesAction";
 
-import Categories from "src/models/Categories";
+import Category from "models/Category";
 
-import Card from "src/models/Card";
+import Card from "models/Card";
 
 interface GetCategoriesAction {
   type: typeof GET_CATEGORIES
-  payload: Categories
+  payload: Category
 }
 
 interface GetCardsCategoriesAction {

@@ -11,23 +11,23 @@ import {withNavigation} from 'react-navigation';
 import _ from 'lodash';
 import Accordion from 'react-native-collapsible/Accordion';
 
-import State from '../../models/State';
-import Modal from '../../components/Modal';
+import State from 'models/State';
+import Modal from 'components/Modal';
 
-import Container from '../../components/Container';
-import AddButton from '../../components/AddButton';
+import Container from 'components/Container';
+import AddButton from 'components/AddButton';
 
-import colors from '../../styles/colors';
+import colors from 'styles/colors';
 import styles from './styles';
 
 import {
   getCategories,
   getCardsCategories,
-} from '../../actions/CategoriesAction';
+} from 'actions/CategoriesAction';
 
-import Reducers from 'src/models/Reducers';
-import User from 'src/models/User';
-import Category from 'src/models/Category';
+import Reducers from 'models/Reducers';
+import User from 'models/User';
+import Category from 'models/Category';
 
 function Home() {
   const dispatch = useDispatch();

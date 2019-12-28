@@ -4,9 +4,9 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {withNavigationFocus} from 'react-navigation';
 import {RNCamera} from 'react-native-camera';
 
-import {sendCard} from '../../actions/CardsAction';
+import {sendCard} from 'actions/CardsAction';
 
-import Back from '../../components/Buttons/Back';
+import Back from 'components/Buttons/Back';
 import styles from './styles';
 
 interface ICamera {

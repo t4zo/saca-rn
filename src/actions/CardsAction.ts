@@ -1,7 +1,7 @@
 import { Alert } from 'react-native';
 import _ from 'lodash';
-import api from '../services/api';
-import Card from '../models/Card';
+import api from 'services/api';
+import Card from 'models/Card';
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const REMOVE_CARD = 'REMOVE_CARD';

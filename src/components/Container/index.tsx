@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Image, TouchableHighlight, ScrollView, Alert} from 'react-native';
 
 import {useDispatch} from 'react-redux';
-import {removeCard} from '../../actions/CardsAction';
+import {removeCard} from 'actions/CardsAction';
 
 import {withNavigation} from 'react-navigation';
 
@@ -10,7 +10,7 @@ import Tts from 'react-native-tts';
 
 import styles from './styles';
 
-import Card from '../../models/Card';
+import Card from 'models/Card';
 
 interface IContainer {
   cards: Card[];

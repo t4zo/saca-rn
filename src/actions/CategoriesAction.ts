@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import api from '../services/api';
+import api from 'services/api';
 import { Alert } from 'react-native';
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';

@@ -5,12 +5,12 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import store from '../store/store';
+import store from 'store/store';
 
-import Home from '../screens/Home';
-import Entrar from '../screens/SignIn';
-import Registrar from '../screens/SignUp';
-import colors from '../styles/colors';
+import Home from 'screens/Home';
+import Entrar from 'screens/SignIn';
+import Registrar from 'screens/SignUp';
+import colors from 'styles/colors';
 
 const TabScreen = createMaterialTopTabNavigator(
   {

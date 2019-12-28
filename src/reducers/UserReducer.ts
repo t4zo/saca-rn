@@ -1,4 +1,4 @@
-import {SIGNIN, SIGNOUT, SIGNUP, REMOVE} from '../actions/UserAction';
+import {SIGNIN, SIGNOUT, SIGNUP, REMOVE} from 'actions/UserAction';
 
 export default function UserReducer(state = {}, {type, payload}: any) {
   switch (type) {

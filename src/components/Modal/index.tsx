@@ -10,12 +10,12 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import Back from '../../components/Buttons/Back';
+import Back from 'components/Buttons/Back';
 
-import State from '../../models/State';
-import Camera from '../../screens/Camera';
+import State from 'models/State';
+import Camera from 'screens/Camera';
 
-import {sendCard} from '../../actions/CardsAction';
+import {sendCard} from 'actions/CardsAction';
 
 import styles from './styles';
 
