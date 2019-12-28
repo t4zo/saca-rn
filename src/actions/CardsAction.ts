@@ -1,20 +1,20 @@
+import { Alert } from 'react-native';
 import _ from 'lodash';
 import api from '../services/api';
-import Picture from 'src/models/Picture';
-import { Alert } from 'react-native';
+import Card from '../models/Card';
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';
-export const REMOVE_PICTURE = 'REMOVE_PICTURE';
+export const REMOVE_CARD = 'REMOVE_CARD';
 
-export function sendPicture(picture: Picture) {
+export function sendCard(card: Card) {
   return async function(dispatch: any, getState: any) {
     try {
       const {user} = getState();
 
-      const {data} = await api.post(`/pictures/${user.id}`, {
-        name: picture.name,
+      const {data} = await api.post(`/cards/${user.id}`, {
+        name: card.name,
         categoryID: 1,
-        base64: picture.base64,
+        base64: card.base64,
       });
 
       if (!_.isEmpty(data)) {
@@ -23,21 +23,20 @@ export function sendPicture(picture: Picture) {
     } catch (error) {
       if (error.response.status == 400) {
         Alert.alert('Erro ao enviar imagem');
-        // Alert.alert(error.response.data);
       }
     }
   };
 }
 
-export function removePicture(picture: Picture) {
+export function removeCard(card: Card) {
   return async function(dispatch: any, getState: any) {
     try {
       const {user} = getState();
 
-      const {data} = await api.delete(`/pictures/${user.id}/${picture.id}`);
+      const {data} = await api.delete(`/Cards/${user.id}/${card.id}`);
 
       if (!_.isEmpty(data)) {
-        dispatch({type: REMOVE_PICTURE, payload: data});
+        dispatch({type: REMOVE_CARD, payload: data});
       }
     } catch (error) {
       if (error.response.status == 400) {

@@ -1,8 +1,8 @@
 export default class User {
-  id?: string;
-  email?: string;
-  name?: string;
-  password?: string;
-  confirmPassword?: string;
-  token?: string;
+  id = 0;
+  email = '';
+  name = '';
+  password = '';
+  confirmPassword = '';
+  token = '';
 };

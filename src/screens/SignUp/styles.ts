@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import colors from '../../styles/colors';
+import colors from 'saca/src/styles/colors';
 
 export default StyleSheet.create({
   container: {
@@ -9,7 +9,7 @@ export default StyleSheet.create({
   },
   image: {
     width: 70,
-    height: 70
+    height: 70,
   },
   bodyContainer: {
     width: '70%',
@@ -20,12 +20,6 @@ export default StyleSheet.create({
   textInput: {
     borderBottomWidth: 1,
     borderBottomColor: '#555555',
-  },
-  recuperarSenha: {
-    color: '#BB2222',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
-    textDecorationColor: '#555555',
   },
   buttonContainer: {
     flexDirection: 'row',

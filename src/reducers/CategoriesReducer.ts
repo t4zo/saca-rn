@@ -1,6 +1,6 @@
 import {
   GET_CATEGORIES,
-  GET_IMAGES_CATEGORIES,
+  GET_CARDS_CATEGORIES,
 } from '../actions/CategoriesAction';
 
 export default function CategoriesReducer(state = [], {type, payload}: any) {
@@ -8,7 +8,7 @@ export default function CategoriesReducer(state = [], {type, payload}: any) {
     case GET_CATEGORIES:
       return [...payload];
 
-    case GET_IMAGES_CATEGORIES:
+    case GET_CARDS_CATEGORIES:
       return [...payload];
 
     default:

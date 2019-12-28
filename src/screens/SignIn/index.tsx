@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {
   Image,
   View,
@@ -11,20 +10,20 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 
-import {userIsEmpty} from '../../services/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import {signIn, signOut, remove} from '../../actions/UserAction';
 
 import User from '../../models/User';
 
 import styles from './styles';
-
-import {signIn, signOut, remove} from '../../actions/UserAction';
+import Reducers from 'src/models/Reducers';
 
 export default function SignIn() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state: any) => state.user);
+  const user = useSelector<Reducers, User>(state => state.user);
 
-  const [userDTO, setUserDTO] = useState<User>();
+  const [userDTO, setUserDTO] = useState<User>(new User());
 
   useEffect(() => {
     function userLoggedIn() {
@@ -39,33 +38,33 @@ export default function SignIn() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Image
-        style={{width: 70, height: 70}}
+        style={styles.image}
         source={require('../../img/logo.png')}
       />
       <View style={styles.bodyContainer}>
         <View style={styles.textInputContainer}>
           <TextInput
             key="signIn_email"
-            editable={userIsEmpty(user)}
+            editable={_.isEmpty(user)}
             style={styles.textInput}
             onChangeText={updateEmail}
-            placeholder="Informe o email"
-            value={userDTO?.email}
+            placeholder="exemplo@email.com"
+            value={userDTO.email}
           />
         </View>
         <View style={styles.textInputContainer}>
           <TextInput
             key="signIn_senha"
-            editable={userIsEmpty(user)}
+            editable={_.isEmpty(user)}
             style={styles.textInput}
             secureTextEntry={true}
             textContentType="password"
             onChangeText={updatePassword}
-            placeholder="Informe a senha"
-            value={userDTO?.password}
+            placeholder="*********"
+            value={userDTO.password}
           />
         </View>
-        {userIsEmpty(user) ? (
+        {_.isEmpty(user) ? (
           <View>
             <TouchableHighlight
               onPress={recuperarSenha}>
@@ -82,7 +81,7 @@ export default function SignIn() {
         )}
       </View>
       <View>
-        {userIsEmpty(user) ? (
+        {_.isEmpty(user) ? (
           <TouchableHighlight onPress={_signIn} style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>
           </TouchableHighlight>
@@ -104,7 +103,7 @@ export default function SignIn() {
   }
 
   async function _signIn() {
-    await dispatch(signIn({email: userDTO?.email, password: userDTO?.password}));
+    await dispatch(signIn({email: userDTO.email, password: userDTO.password}));
   }
 
   async function _signOut() {
@@ -133,5 +132,6 @@ export default function SignIn() {
     );
   }
 
+  // TODO
   function recuperarSenha() {}
 }

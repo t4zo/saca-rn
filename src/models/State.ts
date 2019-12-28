@@ -1,7 +1,7 @@
 import Accordion from './Accordion';
 import Camera from './Camera';
 import Modal from './Modal';
-import Picture from './Picture';
+import Card from './Card';
 
 export default class State {
   update = false;
@@ -9,10 +9,10 @@ export default class State {
   accordion = new Accordion();
   camera = new Camera();
   modal = new Modal();
-  picture = new Picture();
+  picture = new Card();
 
   setUpdate() {
-    this.modal.update = !this.modal.update;
+    this.update = !this.update;
     return this;
   }
 

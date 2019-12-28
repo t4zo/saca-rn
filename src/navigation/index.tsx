@@ -7,21 +7,20 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import store from '../store/store';
 
-import Home from '../App';
+import Home from '../screens/Home';
 import Entrar from '../screens/SignIn';
-// import Registrar from 'saca/src/screens/SignUp';
+import Registrar from '../screens/SignUp';
 import colors from '../styles/colors';
 
 const TabScreen = createMaterialTopTabNavigator(
   {
     Imagens: {screen: Home},
     Entrar: {screen: Entrar},
-    // Registrar: {screen: Registrar},
+    Registrar: {screen: Registrar},
   },
   {
     tabBarPosition: 'top',
     swipeEnabled: true,
-    // animationEnabled: true,
     tabBarOptions: {
       activeTintColor: colors.white,
       inactiveTintColor: '#F8F8F8',

@@ -1,7 +1,7 @@
 import {Alert} from 'react-native';
 import _ from 'lodash';
 import api from '../services/api';
-import User from 'src/models/User';
+import User from '../models/User';
 
 export const SIGNIN = 'SIGNIN';
 export const SIGNOUT = 'SIGNOUT';
