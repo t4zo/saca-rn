@@ -36,7 +36,7 @@ function Container({cards, state, setState}: IContainer) {
             key={card.id}
             onPress={() => Tts.speak(card.name)}
             onLongPress={() => {
-              if (card.categoryID === 1) {
+              if (card.categoryId === 1) {
                 _removeCard(card);
               }
             }}
