@@ -11,6 +11,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginBottom: 60
   },
   capture: {
     flex: 0,

@@ -1,12 +1,15 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import colors from '../../../styles/colors';
 
 export default StyleSheet.create({
-  buttonModalContainer: {
+  container: {
+    position: "absolute",
+    bottom: 0,
+    width: Dimensions.get('window').width,
     backgroundColor: colors.primary,
     alignContent: 'center',
   },
-  closeModalText: {
+  text: {
     fontSize: 24,
     color: colors.white,
     paddingVertical: 6,

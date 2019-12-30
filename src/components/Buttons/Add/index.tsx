@@ -6,11 +6,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import colors from 'styles/colors';
 import styles from './styles';
 
-interface IAddButton {
+interface IAdd {
   openModal: () => void;
 }
 
-export default function AddButton({openModal}: IAddButton) {
+export default function Add({openModal}: IAdd) {
   return (
     <TouchableOpacity
       style={styles.container}

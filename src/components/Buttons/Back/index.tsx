@@ -9,8 +9,8 @@ interface IBack {
 
 export default function Back({onPress, text}: IBack) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.buttonModalContainer}>
-      <Text style={styles.closeModalText}>{text}</Text>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 }

@@ -15,7 +15,7 @@ import State from 'models/State';
 import Modal from 'components/Modal';
 
 import Container from 'components/Container';
-import AddButton from 'components/AddButton';
+import Add from 'components/Buttons/Add';
 
 import colors from 'styles/colors';
 import styles from './styles';
@@ -83,7 +83,7 @@ function Home() {
 
             <Modal state={state} setState={setState} />
           </ScrollView>
-          {!_.isEmpty(user) && <AddButton openModal={openModal} />}
+          {!_.isEmpty(user) && <Add openModal={openModal} />}
         </>
       ) : (
         <View style={styles.activityIndicator}>

@@ -1,20 +1,19 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import colors from '../../styles/colors';
+import colors from 'styles/colors';
+import consts from 'services/consts';
 
 export default StyleSheet.create({
   modalContainer: {
     flex: 1,
     height: Math.round(Dimensions.get('window').height),
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   modalImage: {
-    width: Math.round(Dimensions.get('window').width / 2),
-    height: Math.round(Dimensions.get('window').height / 4),
+    width: consts.image.width,
+    height: consts.image.height,
     alignSelf: 'center',
-    marginVertical: Math.round(Dimensions.get('window').height / 10),
-  },
-  modalInputContainer: {
-    flex: 1,
+    borderColor: colors.black,
+    borderWidth: 1
   },
   textInputContainer: {
     marginHorizontal: 50,

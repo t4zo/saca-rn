@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import consts from 'services/consts';
 
 export default StyleSheet.create({
   cardsContainer: {
@@ -10,8 +11,8 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    width: 100,
-    height: 100,
+    width: consts.image.width,
+    height: consts.image.height,
     marginVertical: 5,
   },
 });

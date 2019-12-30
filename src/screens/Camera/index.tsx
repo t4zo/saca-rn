@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, Button} from 'react-native';
+import {Text, TouchableOpacity, View, Button, BackHandler} from 'react-native';
 import { useDispatch } from 'react-redux';
 import {RNCamera} from 'react-native-camera';
 
@@ -12,19 +12,23 @@ import {withNavigationFocus} from 'react-navigation';
 interface ICamera {
   state: any;
   setState: any;
-  isFocused: boolean;
+  isFocused?: boolean;
+
 }
 
 function Camera({state, setState, isFocused}: ICamera) {
-
   const dispatch = useDispatch();
+
+  // BackHandler.addEventListener('hardwareBackPress', () => {
+  //   handleBackPress();
+  // });
 
   return (
     <View style={styles.container}>
       {isFocused && (<RNCamera
         style={styles.preview}
         type={RNCamera.Constants.Type.back}
-        flashMode={RNCamera.Constants.FlashMode.on}
+        flashMode={RNCamera.Constants.FlashMode.auto}
         androidCameraPermissionOptions={{
           title: 'Permissão para usar a camera',
           message: 'Precisamos da sua permissão para usar a camera',
