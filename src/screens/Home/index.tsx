@@ -7,12 +7,11 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
 } from 'react-native';
-import {withNavigation} from 'react-navigation';
+import {withNavigation, NavigationInjectedProps} from 'react-navigation';
 import _ from 'lodash';
 import Accordion from 'react-native-collapsible/Accordion';
 
 import State from 'models/State';
-import Modal from 'components/Modal';
 
 import Container from 'components/Container';
 import Add from 'components/Buttons/Add';
@@ -29,7 +28,7 @@ import Reducers from 'models/Reducers';
 import User from 'models/User';
 import Category from 'models/Category';
 
-function Home() {
+function Home(props: NavigationInjectedProps) {
   const dispatch = useDispatch();
 
   const user = useSelector<Reducers, User>(state => state.user);
@@ -80,10 +79,8 @@ function Home() {
               duration={400}
               onChange={setSections}
             />
-
-            <Modal state={state} setState={setState} />
           </ScrollView>
-          {!_.isEmpty(user) && <Add openModal={openModal} />}
+          {!_.isEmpty(user) && <Add />}
         </>
       ) : (
         <View style={styles.activityIndicator}>
@@ -99,10 +96,6 @@ function Home() {
       )}
     </View>
   );
-
-  function openModal() {
-    setState({...state, modal: {...state.modal, visible: true}});
-  }
 
   function renderHeader(section: any) {
     return (

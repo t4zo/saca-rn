@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import colors from '../../styles/colors';
+import colors from 'styles/colors';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 60
+    marginBottom: 10
   },
   capture: {
     flex: 0,

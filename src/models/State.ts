@@ -9,7 +9,7 @@ export default class State {
   accordion = new Accordion();
   camera = new Camera();
   modal = new Modal();
-  picture = new Card();
+  card = new Card();
 
   setUpdate() {
     this.update = !this.update;

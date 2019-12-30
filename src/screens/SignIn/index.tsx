@@ -9,16 +9,18 @@ import {
   Alert,
 } from 'react-native';
 import _ from 'lodash';
+import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {signIn, signOut, remove} from 'actions/UserAction';
 
 import User from 'models/User';
 
-import styles from './styles';
 import Reducers from 'models/Reducers';
+import consts from 'services/consts';
+import styles from './styles';
 
-export default function SignIn() {
+function SignIn(props: NavigationInjectedProps) {
   const textInput: any = {};
 
   const dispatch = useDispatch();
@@ -131,6 +133,7 @@ export default function SignIn() {
 
   async function _signIn() {
     await dispatch(signIn({email: userDTO.email, password: userDTO.password}));
+    props.navigation.navigate(consts.screens.Home);
   }
 
   async function _signOut() {
@@ -162,3 +165,5 @@ export default function SignIn() {
   // TODO
   function recuperarSenha() {}
 }
+
+export default withNavigation(SignIn);

@@ -1,61 +1,56 @@
 import React from 'react';
 import _ from 'lodash';
+
 import {Provider} from 'react-redux';
+
 import {createAppContainer} from 'react-navigation';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
+import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
 import store from 'store/store';
 
 import Home from 'screens/Home';
+import AddCard from 'screens/AddCard';
+import Camera from 'screens/Camera';
+
 import Entrar from 'screens/SignIn';
 import Registrar from 'screens/SignUp';
+
 import colors from 'styles/colors';
 
-const TabScreen = createMaterialTopTabNavigator(
-  {
-    Imagens: {screen: Home},
-    Entrar: {screen: Entrar},
-    Registrar: {screen: Registrar},
-  },
-  {
-    tabBarPosition: 'top',
-    swipeEnabled: true,
-    tabBarOptions: {
-      activeTintColor: colors.white,
-      inactiveTintColor: '#F8F8F8',
-      style: {
-        backgroundColor: colors.primary,
-      },
-      labelStyle: {
-        textAlign: 'center',
-      },
-      indicatorStyle: {
-        borderBottomColor: '#87B56A',
-        borderBottomWidth: 2,
-      },
-    },
-  },
-);
-
-let App = createStackNavigator({
-  TabScreen: {
-    screen: TabScreen,
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: colors.primary,
-      },
-      headerTintColor: colors.white,
-      title: 'SACA',
-    },
-  },
+const HomeStack = createStackNavigator({
+  Home: {screen: Home, navigationOptions: {header: null}},
+  AddCard: {screen: AddCard, navigationOptions: {header: null}},
+  Camera: {screen: Camera, navigationOptions: {header: null}}
 });
 
-let Navigation = createAppContainer(App);
-export default function NavFunction() {
+const AppContainer = createAppContainer(
+  createMaterialTopTabNavigator(
+    {
+      Imagens: {screen: HomeStack},
+      Entrar: {screen: Entrar},
+      Registrar: {screen: Registrar},
+    },
+    {
+      tabBarPosition: 'top',
+      tabBarOptions: {
+        activeTintColor: colors.white,
+        inactiveTintColor: colors.white,
+        style: {
+          backgroundColor: colors.primary,
+        },
+        indicatorStyle: {
+          borderBottomColor: colors.white,
+          borderBottomWidth: 3,
+        },
+      },
+    },
+  )
+);
+export default function Navigation() {
   return (
     <Provider store={store}>
-      <Navigation />
+      <AppContainer />
     </Provider>
   );
 }

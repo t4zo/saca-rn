@@ -1,9 +1,9 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import colors from 'saca/src/styles/colors';
+import colors from 'styles/colors';
 
 export default StyleSheet.create({
   container: {
-    height: Dimensions.get('window').height / 1.3,
+    flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },

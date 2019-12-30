@@ -1,55 +1,52 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, Button, BackHandler} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {withNavigationFocus, NavigationFocusInjectedProps} from 'react-navigation';
 import { useDispatch } from 'react-redux';
 import {RNCamera} from 'react-native-camera';
 
 import {sendCard} from 'actions/CardsAction';
 
-import Back from 'components/Buttons/Back';
+import Card from 'models/Card';
+
 import styles from './styles';
-import {withNavigationFocus} from 'react-navigation';
 
-interface ICamera {
-  state: any;
-  setState: any;
-  isFocused?: boolean;
-
+interface ICamera extends NavigationFocusInjectedProps {
+  card: Card;
+  setCard: React.Dispatch<React.SetStateAction<Card>>;
 }
 
-function Camera({state, setState, isFocused}: ICamera) {
+function Camera({card, setCard, isFocused, navigation}: ICamera) {
   const dispatch = useDispatch();
-
-  // BackHandler.addEventListener('hardwareBackPress', () => {
-  //   handleBackPress();
-  // });
 
   return (
     <View style={styles.container}>
-      {isFocused && (<RNCamera
-        style={styles.preview}
-        type={RNCamera.Constants.Type.back}
-        flashMode={RNCamera.Constants.FlashMode.auto}
-        androidCameraPermissionOptions={{
-          title: 'Permissão para usar a camera',
-          message: 'Precisamos da sua permissão para usar a camera',
-          buttonPositive: 'Sim',
-          buttonNegative: 'Não',
-        }}
-        captureAudio={false}>
-        {({camera, status}) => {
-          if (status !== 'READY') return <PendingView />;
-          return (
-            <View style={styles.camera}>
-              <TouchableOpacity
-                onPress={() => takePicture(camera)}
-                style={styles.capture}>
-                <Text style={styles.captureText}> CAPTURAR </Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }}
-      </RNCamera>)}
-      <Back onPress={handleBackPress} text={'Voltar'} />
+      {isFocused && (
+        <RNCamera
+          style={styles.preview}
+          type={RNCamera.Constants.Type.back}
+          flashMode={RNCamera.Constants.FlashMode.auto}
+          androidCameraPermissionOptions={{
+            title: 'Permissão para usar a camera',
+            message: 'Precisamos da sua permissão para usar a camera',
+            buttonPositive: 'Sim',
+            buttonNegative: 'Não',
+          }}
+          captureAudio={false}
+        >
+          {({camera, status}) => {
+            if (status !== 'READY') return <PendingView />;
+            return (
+              <View style={styles.camera}>
+                <TouchableOpacity
+                  onPress={() => takePicture(camera)}
+                  style={styles.capture}>
+                  <Text style={styles.captureText}> CAPTURAR </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        </RNCamera>
+      )}
     </View>
   );
 
@@ -57,13 +54,10 @@ function Camera({state, setState, isFocused}: ICamera) {
     const options = {quality: 0.5, base64: true, fixOrientation: true};
     const data = await camera.takePictureAsync(options);
 
-    setState({
-      ...state,
-      camera: {...state.camera, loaded: false},
-      picture: {...state.picture, base64: data.base64},
-    });
+    setCard({...card, base64: data.base64});
 
-    await dispatch(sendCard(state.picture));
+    await dispatch(sendCard(card));
+    navigation.goBack();
   }
 
   function PendingView() {
@@ -72,14 +66,6 @@ function Camera({state, setState, isFocused}: ICamera) {
         <Text>Carregando</Text>
       </View>
     );
-  }
-
-  function handleBackPress() {
-    setState({
-      ...state,
-      camera: {...state.camera, loaded: false},
-      modal: {...state.modal, visible: true},
-    });
   }
 }
 
