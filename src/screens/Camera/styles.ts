@@ -30,13 +30,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  carregando: {
-    flex: 1,
-    backgroundColor: 'lightgreen',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
   loading: {
     flex: 1,
     backgroundColor: '#FFFFFF'

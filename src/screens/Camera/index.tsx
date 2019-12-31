@@ -27,7 +27,7 @@ function Camera({isFocused, navigation}: ICamera) {
           captureAudio={false}
         >
           {({camera, status}) => {
-            if (status !== 'READY') return <Carregando />;
+            if (status !== 'READY') return <Lottie source={require('assets/animations/loader.json')} autoPlay loop style={styles.loading} />;
             return (
               <View style={styles.camera}>
                 <TouchableOpacity
@@ -58,14 +58,6 @@ function Camera({isFocused, navigation}: ICamera) {
     setLoading(false);
 
     navigation.goBack();
-  }
-
-  function Carregando() {
-    return (
-      <View style={styles.carregando}>
-        <Text>Carregando</Text>
-      </View>
-    );
   }
 }
 
