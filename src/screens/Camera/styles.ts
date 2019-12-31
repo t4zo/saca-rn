@@ -37,4 +37,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+  loading: {
+    flex: 1,
+    backgroundColor: '#FFFFFF'
+  }
 });

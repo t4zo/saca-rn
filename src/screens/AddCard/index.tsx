@@ -8,6 +8,7 @@ import {
   TextInput
 } from 'react-native';
 import { NavigationInjectedProps, ScrollView } from 'react-navigation';
+import Lottie from 'lottie-react-native';
 
 import {sendCard} from 'actions/CardsAction';
 
@@ -19,6 +20,7 @@ export default function Add(props: NavigationInjectedProps) {
   const dispatch = useDispatch();
 
   const [card, setCard] = useState<Card>(new Card());
+  const [loading, setLoading] = useState<boolean>(false);
   
   return (
     <ScrollView contentContainerStyle={styles.modalContainer}>
@@ -49,6 +51,7 @@ export default function Add(props: NavigationInjectedProps) {
             <Text style={styles.buttonCardText}>Enviar</Text>
           </TouchableOpacity>
         </View>
+        {loading && (<Lottie source={require('assets/animations/loader.json')} autoPlay loop style={styles.loading}/>)}
     </ScrollView>
   );
 
@@ -57,7 +60,9 @@ export default function Add(props: NavigationInjectedProps) {
   }
 
   async function _sendCard() {
+    setLoading(true);
     await dispatch(sendCard(card));
+    setLoading(false);
     props.navigation.navigate(consts.screens.Home);
   }
 

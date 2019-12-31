@@ -43,7 +43,7 @@ function SignIn(props: NavigationInjectedProps) {
     <ScrollView contentContainerStyle={styles.container}>
       <Image
         style={styles.image}
-        source={require('../../img/logo.png')}
+        source={require('assets/images/logo.png')}
       />
       <View style={styles.bodyContainer}>
         <View style={styles.textInputContainer}>

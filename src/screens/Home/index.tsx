@@ -4,18 +4,17 @@ import {
   ScrollView,
   Text,
   View,
-  TouchableWithoutFeedback,
-  ActivityIndicator,
+  TouchableWithoutFeedback
 } from 'react-native';
 import _ from 'lodash';
 import Accordion from 'react-native-collapsible/Accordion';
+import Lottie from 'lottie-react-native';
 
 import AccordionModal from 'models/Accordion';
 
 import Cards from 'components/Cards';
 import Add from 'components/Buttons/Add';
 
-import colors from 'styles/colors';
 import styles from './styles';
 
 import {
@@ -58,7 +57,7 @@ function Home() {
     <View style={styles.container}>
       {_.isEmpty(categories) ? (
         <View style={styles.activityIndicator}>
-          <ActivityIndicator size="large" color={colors.primary} />
+          <Lottie source={require('assets/animations/loader.json')} autoPlay loop />
         </View>
       ) : (
         <>

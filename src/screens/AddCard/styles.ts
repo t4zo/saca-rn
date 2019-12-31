@@ -44,4 +44,8 @@ export default StyleSheet.create({
     paddingVertical: 6,
     textAlign: 'center',
   },
+  loading: {
+    flex: 1,
+    backgroundColor: '#FFFFFF'
+  }
 });
