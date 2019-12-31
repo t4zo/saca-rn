@@ -5,8 +5,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
-  Alert,
+  TextInput
 } from 'react-native';
 import { NavigationInjectedProps, ScrollView } from 'react-navigation';
 
@@ -42,12 +41,12 @@ export default function Add(props: NavigationInjectedProps) {
           <TouchableOpacity
             onPress={addCard}
             style={styles.buttonModalContainer}>
-            <Text style={styles.buttonCardText}>Tirar Foto</Text>
+            <Text style={styles.buttonCardText}>Capturar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={_sendCard}
             style={styles.buttonModalContainer}>
-            <Text style={styles.buttonCardText}>Enviar Foto</Text>
+            <Text style={styles.buttonCardText}>Enviar</Text>
           </TouchableOpacity>
         </View>
     </ScrollView>

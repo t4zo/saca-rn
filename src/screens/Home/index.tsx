@@ -7,13 +7,12 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
 } from 'react-native';
-import {withNavigation, NavigationInjectedProps} from 'react-navigation';
 import _ from 'lodash';
 import Accordion from 'react-native-collapsible/Accordion';
 
-import State from 'models/State';
+import AccordionModal from 'models/Accordion';
 
-import Container from 'components/Container';
+import Cards from 'components/Cards';
 import Add from 'components/Buttons/Add';
 
 import colors from 'styles/colors';
@@ -21,71 +20,61 @@ import styles from './styles';
 
 import {
   getCategories,
-  getCardsCategories,
+  getUserCategories,
 } from 'actions/CategoriesAction';
 
 import Reducers from 'models/Reducers';
 import User from 'models/User';
 import Category from 'models/Category';
 
-function Home(props: NavigationInjectedProps) {
+function Home() {
   const dispatch = useDispatch();
 
   const user = useSelector<Reducers, User>(state => state.user);
   const categories = useSelector<Reducers, Category[]>(state => state.categories);
 
-  const [state, setState] = useState<State>(new State());
+  const [accordion, setAccordion] = useState<AccordionModal>(new AccordionModal());
 
   useEffect(() => {
-    async function update() {
-      await dispatch(getCategories());
-      
-      if (!_.isEmpty(user)) {
-        await dispatch(getCardsCategories(user));
-        setState({
-          ...state,
-          accordion: {...state.accordion, activeSections: [0]},
-        });
+    async function fetch() {
+      if (_.isEmpty(user)) {
+        await dispatch(getCategories());
+      } else {
+        await dispatch(getUserCategories(user));
       }
     }
 
-    update();
-  }, [user, state.update]);
+    fetch();
+  }, [user]);
 
   const content = categories.map(category => {
     return {
       title: category.name,
-      content: (
-        <Container
-          state={state}
-          setState={setState}
-          cards={category.cards}
-        />
-      ),
+      content: <Cards cards={category.cards}/>
     };
   });
 
   return (
     <View style={styles.container}>
-      {!_.isEmpty(categories) ? (
+      {_.isEmpty(categories) ? (
+        <View style={styles.activityIndicator}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      ) : (
         <>
           <ScrollView>
             <Accordion
-              activeSections={state.accordion.activeSections}
+              activeSections={accordion.activeSections}
               sections={content}
               touchableComponent={TouchableWithoutFeedback}
               renderHeader={renderHeader}
               renderContent={renderContent}
               duration={400}
-              onChange={setSections}
+              onChange={_setSections}
             />
           </ScrollView>
           {!_.isEmpty(user) && <Add />}
         </>
-      ) : (
-        <View style={styles.activityIndicator}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
       )}
       {!_.isEmpty(user) && (
         <View style={styles.removeMessageContainer}>
@@ -109,15 +98,12 @@ function Home(props: NavigationInjectedProps) {
     return section.content;
   }
 
-  function setSections(sections: any) {
-    setState({
-      ...state,
-      accordion: {
-        ...state.accordion,
-        activeSections: sections.includes(undefined) ? [] : sections,
-      },
+  function _setSections(sections: any) {
+    setAccordion({
+      ...accordion,
+      activeSections: sections.includes(undefined) ? [] : sections,
     });
   }
 }
 
-export default withNavigation(Home);
+export default Home;

@@ -8,10 +8,10 @@ export const SIGNOUT = 'SIGNOUT';
 export const SIGNUP = 'SIGNUP';
 export const REMOVE = 'REMOVE';
 
-export function signIn(usuario: User) {
+export function signIn(user: User) {
   return async function(dispatch: any) {
     try {
-      const {data} = await api.post(`/auth/signin`, usuario);
+      const {data} = await api.post(`/auth/signin`, user);
       if (!_.isEmpty(data)) {
         dispatch({type: SIGNIN, payload: data});
       }
@@ -33,10 +33,10 @@ export function signOut() {
   };
 }
 
-export function signUp(usuario: User) {
+export function signUp(user: User) {
   return async function(dispatch: any) {
     try {
-      const {data} = await api.post(`/auth/signup`, usuario);
+      const {data} = await api.post(`/auth/signup`, user);
 
       if (!_.isEmpty(data)) {
         dispatch({type: SIGNUP, payload: data});

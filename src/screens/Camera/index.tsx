@@ -1,23 +1,13 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {withNavigationFocus, NavigationFocusInjectedProps} from 'react-navigation';
-import { useDispatch } from 'react-redux';
 import {RNCamera} from 'react-native-camera';
-
-import {sendCard} from 'actions/CardsAction';
-
-import Card from 'models/Card';
 
 import styles from './styles';
 
-interface ICamera extends NavigationFocusInjectedProps {
-  card: Card;
-  setCard: React.Dispatch<React.SetStateAction<Card>>;
-}
+interface ICamera extends NavigationFocusInjectedProps {}
 
-function Camera({card, setCard, isFocused, navigation}: ICamera) {
-  const dispatch = useDispatch();
-
+function Camera({isFocused, navigation}: ICamera) {
   return (
     <View style={styles.container}>
       {isFocused && (
@@ -34,7 +24,7 @@ function Camera({card, setCard, isFocused, navigation}: ICamera) {
           captureAudio={false}
         >
           {({camera, status}) => {
-            if (status !== 'READY') return <PendingView />;
+            if (status !== 'READY') return <Carregando />;
             return (
               <View style={styles.camera}>
                 <TouchableOpacity
@@ -54,15 +44,17 @@ function Camera({card, setCard, isFocused, navigation}: ICamera) {
     const options = {quality: 0.5, base64: true, fixOrientation: true};
     const data = await camera.takePictureAsync(options);
 
+    const card  = navigation.getParam('card');
+    const setCard  = navigation.getParam('setCard');
+
     setCard({...card, base64: data.base64});
 
-    await dispatch(sendCard(card));
     navigation.goBack();
   }
 
-  function PendingView() {
+  function Carregando() {
     return (
-      <View style={styles.esperando}>
+      <View style={styles.carregando}>
         <Text>Carregando</Text>
       </View>
     );

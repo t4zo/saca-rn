@@ -30,7 +30,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  esperando: {
+  carregando: {
     flex: 1,
     backgroundColor: 'lightgreen',
     justifyContent: 'center',
