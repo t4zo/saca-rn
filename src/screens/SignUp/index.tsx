@@ -10,15 +10,19 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {signUp} from 'actions/UserAction';
 
 import Reducers from 'models/Reducers';
 import User from 'models/User';
 
+import consts from 'services/consts';
+
 import styles from './styles';
 
-export default function SignUp() {
+function SignUp(props: NavigationInjectedProps) {
   const textInput: any = {};
 
   const dispatch = useDispatch();
@@ -153,8 +157,19 @@ export default function SignUp() {
     if (userDTO.password !== userDTO.confirmPassword) {
       Alert.alert('As senhas não conferem');
     } else {
-      await dispatch(signUp(userDTO));
-      setUserDTO(new User());
+      const isUserSigningUp = await dispatch(signUp(userDTO));
+
+      // @ts-ignore
+      if(isUserSigningUp) {
+        props.navigation.navigate(consts.screens.Home);
+        clearUserDto();
+      }
     }
   }
+
+  function clearUserDto() {
+    setUserDTO(new User());
+  }
 }
+
+export default withNavigation(SignUp);

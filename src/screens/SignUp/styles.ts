@@ -3,13 +3,14 @@ import colors from 'styles/colors';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   image: {
     width: 70,
     height: 70,
+    marginVertical: 10,
   },
   bodyContainer: {
     width: '70%',
@@ -24,6 +25,7 @@ export default StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginVertical: 10,
   },
   button: {},
   buttonText: {

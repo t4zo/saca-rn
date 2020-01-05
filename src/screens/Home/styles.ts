@@ -18,7 +18,10 @@ export default StyleSheet.create({
     fontSize: 20,
     color: colors.white,
   },
-  activityIndicator: {
+  categoryName: {
+    marginLeft: 50
+  },
+  loading: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

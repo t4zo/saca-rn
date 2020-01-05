@@ -1,12 +1,11 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import colors from 'styles/colors';
 import consts from 'services/consts';
 
 export default StyleSheet.create({
   modalContainer: {
-    flex: 1,
-    height: Math.round(Dimensions.get('window').height),
-    justifyContent: 'space-around',
+    flexGrow: 1,
+    justifyContent: 'space-evenly',
   },
   modalImage: {
     width: consts.image.width,

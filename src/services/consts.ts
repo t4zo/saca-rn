@@ -9,5 +9,9 @@ export default {
     Camera: 'Camera',
     Entrar: 'Entrar',
     Registrar: 'Registrar'
+  },
+  httpStatusCode: {
+    Ok: 200,
+    BadRequest: 400
   }
 }

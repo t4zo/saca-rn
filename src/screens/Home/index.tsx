@@ -10,6 +10,8 @@ import _ from 'lodash';
 import Accordion from 'react-native-collapsible/Accordion';
 import Lottie from 'lottie-react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 import AccordionModal from 'models/Accordion';
 
 import Cards from 'components/Cards';
@@ -48,7 +50,12 @@ function Home() {
 
   const content = categories.map(category => {
     return {
-      title: category.name,
+      title: (
+        <>
+          <Icon name={category.iconName} size={25}/>
+          <Text style={{paddingLeft: 50}}>   {category.name}</Text>
+        </>
+      ),
       content: <Cards cards={category.cards}/>
     };
   });
@@ -56,7 +63,7 @@ function Home() {
   return (
     <View style={styles.container}>
       {_.isEmpty(categories) ? (
-        <View style={styles.activityIndicator}>
+        <View style={styles.loading}>
           <Lottie source={require('assets/animations/loader.json')} autoPlay loop />
         </View>
       ) : (

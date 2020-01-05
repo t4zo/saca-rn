@@ -3,6 +3,9 @@ import _ from 'lodash';
 import api from 'services/api';
 import Card from 'models/Card';
 
+import { getUserCategories } from './CategoriesAction';
+import consts from 'services/consts';
+
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const REMOVE_CARD = 'REMOVE_CARD';
 
@@ -11,17 +14,18 @@ export function sendCard(card: Card) {
     try {
       const {user} = getState();
 
-      const {data} = await api.post(`/cards/${user.id}`, {
+      const request = await api.post(`/cards/${user.id}`, {
         name: card.name,
-        categoryID: 1,
+        categoryId: 1,
         base64: card.base64,
       });
 
-      if (!_.isEmpty(data)) {
-        dispatch({type: GET_CATEGORIES, payload: data});
+      
+      if (request.status === consts.httpStatusCode.Ok) {
+        dispatch(await getUserCategories(user));
       }
     } catch (error) {
-      if (error.response.status == 400) {
+      if (error.response.status == consts.httpStatusCode.BadRequest) {
         Alert.alert('Erro ao enviar imagem');
       }
     }
@@ -33,13 +37,13 @@ export function removeCard(card: Card) {
     try {
       const {user} = getState();
 
-      const {data} = await api.delete(`/Cards/${user.id}/${card.id}`);
+      const request = await api.delete(`/cards/${user.id}/${card.id}`);
 
-      if (!_.isEmpty(data)) {
-        dispatch({type: REMOVE_CARD, payload: data});
+      if (request.status === consts.httpStatusCode.Ok) {
+        dispatch(await getUserCategories(user));
       }
     } catch (error) {
-      if (error.response.status == 400) {
+      if (error.response.status == consts.httpStatusCode.BadRequest) {
         Alert.alert(error.response.data);
       }
     }

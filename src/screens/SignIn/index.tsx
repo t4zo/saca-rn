@@ -105,7 +105,7 @@ function SignIn(props: NavigationInjectedProps) {
           </View>
         )}
       </View>
-      <View>
+      <View style={styles.buttonContainer}>
         {_.isEmpty(user) ? (
           <TouchableHighlight onPress={_signIn} style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>
@@ -132,8 +132,12 @@ function SignIn(props: NavigationInjectedProps) {
   }
 
   async function _signIn() {
-    await dispatch(signIn({email: userDTO.email, password: userDTO.password}));
-    props.navigation.navigate(consts.screens.Home);
+    const isUserSigningIn = await dispatch(signIn({email: userDTO.email, password: userDTO.password}));
+    
+    // @ts-ignore
+    if(isUserSigningIn) {
+      props.navigation.navigate(consts.screens.Home);
+    }
   }
 
   async function _signOut() {
@@ -142,7 +146,10 @@ function SignIn(props: NavigationInjectedProps) {
   }
 
   function clearUserDto() {
-    setUserDTO(new User());
+    const _user = new User();
+    _user.email = user.email;
+    _user.password = '';
+    setUserDTO(_user);
   }
 
   function _remove() {
