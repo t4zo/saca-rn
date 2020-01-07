@@ -11,7 +11,7 @@ export default StyleSheet.create({
     width: consts.image.width,
     height: consts.image.height,
     alignSelf: 'center',
-    borderColor: colors.black,
+    borderColor: colors.primary,
     borderWidth: 1
   },
   textInputContainer: {
@@ -19,19 +19,33 @@ export default StyleSheet.create({
     marginBottom: 50,
   },
   actionImageButtons: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-evenly',
+    marginHorizontal: 50
   },
   textInput: {
     borderBottomWidth: 1,
     borderBottomColor: colors.grey,
   },
   buttonModalContainer: {
-    backgroundColor: colors.primary,
     alignContent: 'center',
+    marginVertical: 5,
+    borderRadius: 5,
+    padding: 5
   },
-  buttonCardText: {
-    fontSize: 18,
+  buttonCardCapturar: {
+    fontSize: 20,
+    color: colors.primary,
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.primary,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    textAlign: 'center',
+  },
+  buttonCardEnviar: {
+    backgroundColor: colors.primary,
+    fontSize: 20,
     color: colors.white,
     paddingVertical: 8,
     paddingHorizontal: 20,

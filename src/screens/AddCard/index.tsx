@@ -43,12 +43,12 @@ export default function Add(props: NavigationInjectedProps) {
           <TouchableOpacity
             onPress={addCard}
             style={styles.buttonModalContainer}>
-            <Text style={styles.buttonCardText}>Capturar</Text>
+            <Text style={styles.buttonCardCapturar}>Capturar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={_sendCard}
             style={styles.buttonModalContainer}>
-            <Text style={styles.buttonCardText}>Enviar</Text>
+            <Text style={styles.buttonCardEnviar}>Enviar</Text>
           </TouchableOpacity>
         </View>
         {loading && (<Lottie source={require('assets/animations/loader.json')} autoPlay loop style={styles.loading}/>)}
