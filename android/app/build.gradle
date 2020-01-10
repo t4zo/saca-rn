@@ -134,7 +134,7 @@ android {
         applicationId "com.saca"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
+        versionCode 10
         versionName "0.8"
 
         missingDimensionStrategy 'react-native-camera', 'general' // <--- insert this line
