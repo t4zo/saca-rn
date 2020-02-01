@@ -82,6 +82,9 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+// Codepush
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
 // React-Native-Vector-Icons
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
@@ -134,10 +137,13 @@ android {
         applicationId "com.saca"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10
-        versionName "0.8"
+        versionCode 11
+        versionName "0.9"
 
         missingDimensionStrategy 'react-native-camera', 'general' // <--- insert this line
+
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     splits {
         abi {

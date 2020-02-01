@@ -32,7 +32,7 @@ function SignIn(props: NavigationInjectedProps) {
   useEffect(() => {
     function userLoggedIn() {
       if (!_.isEmpty(user)) {
-        setUserDTO({...user, password: '*********'});
+        setUserDTO({...user, password: 'Informe a Senha'});
       }
     }
 
@@ -59,7 +59,7 @@ function SignIn(props: NavigationInjectedProps) {
             editable={_.isEmpty(user)}
             style={styles.textInput}
             onChangeText={updateEmail}
-            placeholder="exemplo@email.com"
+            placeholder="Informe o Email"
             value={userDTO.email}
             ref={input => {
               textInput["one"] = input;
@@ -85,7 +85,7 @@ function SignIn(props: NavigationInjectedProps) {
             secureTextEntry={true}
             textContentType="password"
             onChangeText={updatePassword}
-            placeholder="*********"
+            placeholder="Informe a Senha"
             value={userDTO.password}
           />
         </View>

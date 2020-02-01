@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SACA</string>
+
+    <!-- Appcenter -->
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+
+    <!-- Codepush -->
+    <string moduleConfig="true" name="CodePushDeploymentKey">1ers8C9Ak8Ls5fOWLbsazOb4juvZaCWliMbfd</string>
 </resources>

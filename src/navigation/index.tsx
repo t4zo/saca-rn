@@ -7,6 +7,8 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
+import codePush from "react-native-code-push";
+
 import store from 'store/store';
 
 import Home from 'screens/Home';
@@ -47,10 +49,17 @@ const AppContainer = createAppContainer(
     },
   )
 );
-export default function Navigation() {
+
+function Navigation() {
   return (
     <Provider store={store}>
       <AppContainer />
     </Provider>
   );
 }
+
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START, 
+}
+
+export default codePush(codePushOptions)(Navigation);
