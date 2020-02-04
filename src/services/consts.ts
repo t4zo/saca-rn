@@ -13,5 +13,9 @@ export default {
   httpStatusCode: {
     Ok: 200,
     BadRequest: 400
+  },
+  loading: {
+    true: 'true',
+    false: 'false'
   }
 }

@@ -3,5 +3,6 @@ import Category from "./Category";
 
 export default class Reducers {
   categories!: Category[];
-  user!: User
+  user!: User;
+  loading!: boolean;
 }

@@ -27,21 +27,28 @@ import {
 import Reducers from 'models/Reducers';
 import User from 'models/User';
 import Category from 'models/Category';
+import { setLoading } from 'actions/LoadingAction';
+import consts from 'services/consts';
 
 function Home() {
   const dispatch = useDispatch();
 
   const user = useSelector<Reducers, User>(state => state.user);
   const categories = useSelector<Reducers, Category[]>(state => state.categories);
+  const loading = useSelector<Reducers, boolean>(state => state.loading);
 
   const [accordion, setAccordion] = useState<AccordionModal>(new AccordionModal());
 
   useEffect(() => {
     async function fetch() {
       if (_.isEmpty(user)) {
+        dispatch(setLoading(consts.loading.true));
         await dispatch(getCategories());
+        dispatch(setLoading(consts.loading.false));
       } else {
+        dispatch(setLoading(consts.loading.true));
         await dispatch(getUserCategories(user));
+        dispatch(setLoading(consts.loading.false));
       }
     }
 
@@ -62,7 +69,7 @@ function Home() {
 
   return (
     <View style={styles.container}>
-      {_.isEmpty(categories) ? (
+      {_.isEmpty(categories) || loading ? (
         <View style={styles.loading}>
           <Lottie source={require('assets/animations/loader.json')} autoPlay loop />
         </View>

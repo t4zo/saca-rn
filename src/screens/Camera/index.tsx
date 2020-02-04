@@ -31,7 +31,7 @@ function Camera({isFocused, navigation}: ICamera) {
             return (
               <View style={styles.camera}>
                 <TouchableOpacity
-                  onPress={() => takePicture(camera)}
+                  onPress={async () => await takePicture(camera)}
                   style={styles.capture}>
                   <Text style={styles.captureText}> CAPTURAR </Text>
                 </TouchableOpacity>

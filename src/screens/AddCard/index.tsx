@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Image,
   View,
@@ -15,12 +15,18 @@ import {sendCard} from 'actions/CardsAction';
 import Card from 'models/Card';
 import consts from 'services/consts';
 import styles from './styles';
+import { setLoading } from 'actions/LoadingAction';
+import { getUserCategories } from 'actions/CategoriesAction';
+import Reducers from 'models/Reducers';
+import User from 'models/User';
 
 export default function Add(props: NavigationInjectedProps) {
   const dispatch = useDispatch();
 
+  const user = useSelector<Reducers, User>(state => state.user);
+  
   const [card, setCard] = useState<Card>(new Card());
-  const [loading, setLoading] = useState<boolean>(false);
+  const [sendLoading, setSendLoading] = useState<boolean>(false);
   
   return (
     <ScrollView contentContainerStyle={styles.modalContainer}>
@@ -51,7 +57,7 @@ export default function Add(props: NavigationInjectedProps) {
             <Text style={styles.buttonCardEnviar}>Enviar</Text>
           </TouchableOpacity>
         </View>
-        {loading && (<Lottie source={require('assets/animations/loader.json')} autoPlay loop style={styles.loading}/>)}
+        {sendLoading && (<Lottie source={require('assets/animations/loader.json')} autoPlay loop style={styles.loading}/>)}
     </ScrollView>
   );
 
@@ -60,9 +66,12 @@ export default function Add(props: NavigationInjectedProps) {
   }
 
   async function _sendCard() {
-    setLoading(true);
+    setSendLoading(true);
+    dispatch(setLoading(consts.loading.true));
     await dispatch(sendCard(card));
-    setLoading(false);
+    await dispatch(getUserCategories(user));
+    dispatch(setLoading(consts.loading.false));
+    setSendLoading(false);
     props.navigation.navigate(consts.screens.Home);
   }
 

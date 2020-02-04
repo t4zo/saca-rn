@@ -15,6 +15,8 @@ import User from 'models/User';
 import CardComponent from 'components/Cards/Card';
 
 import styles from './styles';
+import consts from 'services/consts';
+import { setLoading } from 'actions/LoadingAction';
 
 interface ICards {
   cards: Card[];
@@ -42,8 +44,10 @@ function Cards({cards}: ICards) {
         {
           text: 'Sim',
           onPress: async () => {
+            dispatch(setLoading(consts.loading.true));
             await dispatch(removeCard(card));
             await dispatch(getUserCategories(user));
+            dispatch(setLoading(consts.loading.false));
           },
         },
       ],
