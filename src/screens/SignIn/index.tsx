@@ -1,26 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Image,
   View,
   ScrollView,
   Text,
-  TextInput,
   TouchableHighlight,
   Alert,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
-import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {signIn, signOut, remove} from 'actions/UserAction';
+import { useNavigation } from '@react-navigation/native';
+
+import userAction from 'actions/UserAction';
 
 import User from 'models/User';
 
 import Reducers from 'models/Reducers';
-import consts from 'services/consts';
+import Consts from 'utils/Consts';
 import styles from './styles';
+import { Button, TextInput } from 'react-native-paper';
 
-function SignIn(props: NavigationInjectedProps) {
+function SignIn() {
   const textInput: any = {};
 
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ function SignIn(props: NavigationInjectedProps) {
   const user = useSelector<Reducers, User>(state => state.user);
 
   const [userDTO, setUserDTO] = useState<User>(new User());
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     function userLoggedIn() {
@@ -49,26 +52,23 @@ function SignIn(props: NavigationInjectedProps) {
         <View style={styles.textInputContainer}>
           <TextInput
             key="signIn_email"
+            mode="outlined"
             autoCapitalize='none'
             autoCorrect={false}
             returnKeyType = { "next" }
-            onSubmitEditing={() => {
-              focusNextTextInput("two");
-            }}
+            onSubmitEditing={() => focusNextTextInput("two")}
             blurOnSubmit={false}
             editable={_.isEmpty(user)}
-            style={styles.textInput}
             onChangeText={updateEmail}
-            placeholder="Informe o Email"
+            label="Email"
             value={userDTO.email}
-            ref={input => {
-              textInput["one"] = input;
-            }}
+            ref={input => textInput["one"] = input}
           />
         </View>
         <View style={styles.textInputContainer}>
           <TextInput
             key="signIn_senha"
+            mode="outlined"
             autoCapitalize='none'
             autoCompleteType='password'
             autoCorrect={false}
@@ -77,15 +77,13 @@ function SignIn(props: NavigationInjectedProps) {
               updatePassword(e.nativeEvent.text)
               _signIn();
             }}
-            ref={input => {
-              textInput["two"] = input;
-            }}
+            ref={input => textInput["two"] = input}
             editable={_.isEmpty(user)}
             style={styles.textInput}
             secureTextEntry={true}
             textContentType="password"
             onChangeText={updatePassword}
-            placeholder="Informe a Senha"
+            label="Senha"
             value={userDTO.password}
           />
         </View>
@@ -107,13 +105,13 @@ function SignIn(props: NavigationInjectedProps) {
       </View>
       <View style={styles.buttonContainer}>
         {_.isEmpty(user) ? (
-          <TouchableHighlight onPress={_signIn} style={styles.button}>
-            <Text style={styles.buttonText}>Entrar</Text>
-          </TouchableHighlight>
+          <Button icon="login-variant" mode="contained" onPress={_signIn}>
+            Entrar
+          </Button>
         ) : (
-          <TouchableHighlight onPress={_signOut} style={styles.button}>
-            <Text style={styles.buttonText}>Sair</Text>
-          </TouchableHighlight>
+          <Button icon="minus" mode="contained" onPress={_signOut}>
+            <Text>Sair</Text>
+          </Button>
         )}
       </View>
     </ScrollView>
@@ -132,16 +130,16 @@ function SignIn(props: NavigationInjectedProps) {
   }
 
   async function _signIn() {
-    const isUserSigningIn = await dispatch(signIn({email: userDTO.email, password: userDTO.password}));
+    const isUserSigningIn = await dispatch(userAction.signIn({email: userDTO.email, password: userDTO.password}));
     
     // @ts-ignore
     if(isUserSigningIn) {
-      props.navigation.navigate(consts.screens.Home);
+      navigation.navigate(Consts.screens.Home);
     }
   }
 
   async function _signOut() {
-    await dispatch(signOut());
+    await dispatch(userAction.signOut());
     clearUserDto();
   }
 
@@ -161,7 +159,7 @@ function SignIn(props: NavigationInjectedProps) {
         {
           text: 'Sim',
           onPress: async () => {
-            await dispatch(remove());
+            await dispatch(userAction.remove());
             clearUserDto();
           },
         },
@@ -173,4 +171,5 @@ function SignIn(props: NavigationInjectedProps) {
   function recuperarSenha() {}
 }
 
-export default withNavigation(SignIn);
+// export default withNavigation(SignIn);
+export default SignIn;

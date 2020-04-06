@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import colors from 'styles/colors';
+import Colors from 'utils/Colors';
 
 export default StyleSheet.create({
   container: {
@@ -8,15 +8,15 @@ export default StyleSheet.create({
   titleContainer: {
     alignItems: 'center',
     paddingVertical: 10,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     height: 50,
     borderWidth: 1,
-    borderColor: colors.white,
+    borderColor: Colors.white,
   },
   title: {
     fontWeight: '600',
     fontSize: 20,
-    color: colors.white,
+    color: Colors.white,
   },
   categoryName: {
     marginLeft: 50

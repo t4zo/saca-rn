@@ -1,17 +1,17 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import colors from '../../../styles/colors';
+import Colors from 'utils/Colors';
 
 export default StyleSheet.create({
   container: {
     position: "absolute",
     bottom: 0,
     width: Dimensions.get('window').width,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     alignContent: 'center',
   },
   text: {
     fontSize: 24,
-    color: colors.white,
+    color: Colors.white,
     paddingVertical: 6,
     textAlign: 'center',
   },

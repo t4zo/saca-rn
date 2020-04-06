@@ -19,18 +19,15 @@ import Add from 'components/Buttons/Add';
 
 import styles from './styles';
 
-import {
-  getCategories,
-  getUserCategories,
-} from 'actions/CategoriesAction';
-
 import Reducers from 'models/Reducers';
 import User from 'models/User';
 import Category from 'models/Category';
-import { setLoading } from 'actions/LoadingAction';
-import consts from 'services/consts';
+import Consts from 'utils/Consts';
 
-function Home() {
+import categoryAction from 'actions/CategoryAction';
+import loadingAction from 'actions/LoadingAction';
+
+function Home(props: any) {
   const dispatch = useDispatch();
 
   const user = useSelector<Reducers, User>(state => state.user);
@@ -39,16 +36,18 @@ function Home() {
 
   const [accordion, setAccordion] = useState<AccordionModal>(new AccordionModal());
 
+  // const navigation = useNavigation();
+
   useEffect(() => {
     async function fetch() {
       if (_.isEmpty(user)) {
-        dispatch(setLoading(consts.loading.true));
-        await dispatch(getCategories());
-        dispatch(setLoading(consts.loading.false));
+        dispatch(loadingAction.setLoading(loadingAction.SET_LOADING_TRUE));
+        await dispatch(categoryAction.getAll());
+        dispatch(loadingAction.setLoading(loadingAction.SET_LOADING_FALSE));
       } else {
-        dispatch(setLoading(consts.loading.true));
-        await dispatch(getUserCategories(user));
-        dispatch(setLoading(consts.loading.false));
+        dispatch(loadingAction.setLoading(loadingAction.SET_LOADING_TRUE));
+        await dispatch(categoryAction.getCategoriesFromUser(user));
+        dispatch(loadingAction.setLoading(loadingAction.SET_LOADING_FALSE));
       }
     }
 
@@ -86,7 +85,7 @@ function Home() {
               onChange={_setSections}
             />
           </ScrollView>
-          {!_.isEmpty(user) && <Add />}
+          {!_.isEmpty(user) && <Add screen={Consts.screens.AddCard} />}
         </>
       )}
       {!_.isEmpty(user) && (

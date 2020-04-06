@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import colors from 'styles/colors';
-import consts from 'services/consts';
+import Colors from 'utils/Colors';
+import Consts from 'utils/Consts';
 
 export default StyleSheet.create({
   modalContainer: {
@@ -8,10 +8,10 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   modalImage: {
-    width: consts.image.width,
-    height: consts.image.height,
+    width: Consts.image.width,
+    height: Consts.image.height,
     alignSelf: 'center',
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     borderWidth: 1
   },
   textInputContainer: {
@@ -25,7 +25,7 @@ export default StyleSheet.create({
   },
   textInput: {
     borderBottomWidth: 1,
-    borderBottomColor: colors.grey,
+    borderBottomColor: Colors.grey,
   },
   buttonModalContainer: {
     alignContent: 'center',
@@ -35,25 +35,25 @@ export default StyleSheet.create({
   },
   buttonCardCapturar: {
     fontSize: 20,
-    color: colors.primary,
-    backgroundColor: colors.white,
+    color: Colors.primary,
+    backgroundColor: Colors.white,
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     paddingVertical: 8,
     paddingHorizontal: 20,
     textAlign: 'center',
   },
   buttonCardEnviar: {
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     fontSize: 20,
-    color: colors.white,
+    color: Colors.white,
     paddingVertical: 8,
     paddingHorizontal: 20,
     textAlign: 'center',
   },
   closeModalText: {
     fontSize: 24,
-    color: colors.white,
+    color: Colors.white,
     paddingVertical: 6,
     textAlign: 'center',
   },

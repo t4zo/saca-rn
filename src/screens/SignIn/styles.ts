@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import colors from 'styles/colors';
+import Colors from 'utils/Colors';
 
 export default StyleSheet.create({
   container: {
@@ -35,10 +35,10 @@ export default StyleSheet.create({
   },
   button: {},
   buttonText: {
-    backgroundColor: colors.primary,
-    color: colors.white,
+    backgroundColor: Colors.primary,
+    color: Colors.white,
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     fontSize: 16,
     borderRadius: 5,
     paddingVertical: 10,

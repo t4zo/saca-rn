@@ -1,21 +1,21 @@
-import {SIGNIN, SIGNOUT, SIGNUP, REMOVE} from 'actions/UserAction';
+import userAction, { IUserAction } from 'actions/UserAction';
 
-export default function UserReducer(state = {}, {type, payload}: any) {
+export default function UserReducer(state = {}, { type, payload }: IUserAction) {
   switch (type) {
-    case SIGNIN:
+    case userAction.SIGNIN:
       return {
         ...payload,
       };
 
-    case SIGNOUT:
+    case userAction.SIGNOUT:
       return {};
 
-    case SIGNUP:
+    case userAction.SIGNUP:
       return {
         ...payload,
       };
 
-    case REMOVE:
+    case userAction.REMOVE:
       return {};
 
     default:

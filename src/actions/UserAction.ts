@@ -1,26 +1,31 @@
-import {Alert} from 'react-native';
-import _ from 'lodash';
-import api from 'services/api';
+import { Alert } from 'react-native';
 import User from 'models/User';
 import SignIn from 'models/SignIn';
-import consts from 'services/consts';
+import Consts from 'utils/Consts';
+import userService from 'services/userService';
 
 export const SIGNIN = 'SIGNIN';
 export const SIGNOUT = 'SIGNOUT';
 export const SIGNUP = 'SIGNUP';
 export const REMOVE = 'REMOVE';
 
-export function signIn(user: SignIn) {
-  return async function(dispatch: any) {
+export interface IUserAction {
+  type: 'SIGNIN' | 'SIGNOUT' | 'SIGNUP' | 'REMOVE';
+  payload?: any;
+}
+
+function signIn(user: SignIn) {
+  return async function(dispatch: React.Dispatch<IUserAction>) {
+    
     try {
-      const request = await api.post(`/auth/signin`, user);
-      if (request.status === consts.httpStatusCode.Ok) {
-        dispatch({type: SIGNIN, payload: request.data});
+      const request = await userService.signIn(user);
+      if (request.status === Consts.httpStatusCode.Ok) {
+        dispatch({ type: SIGNIN, payload: request.data });
       }
 
       return true;
     } catch (error) {
-      if (error.response.status == consts.httpStatusCode.BadRequest) {
+      if (error.response.status == Consts.httpStatusCode.BadRequest) {
         Alert.alert(error.response.data);
         return false;
       } else {
@@ -29,47 +34,61 @@ export function signIn(user: SignIn) {
         );
       }
     }
-  };
+
+  }
 }
 
-export function signOut() {
-  return async function(dispatch: any) {
-    dispatch({type: SIGNOUT});
-  };
-}
-
-export function signUp(user: User) {
-  return async function(dispatch: any) {
+function signUp(user: User) {
+  return async function(dispatch: React.Dispatch<IUserAction>) {
+    
     try {
-      const request = await api.post(`/auth/signup`, user);
+      const request = await userService.signUp(user);
 
-      if (request.status === consts.httpStatusCode.Ok) {
+      if (request.status === Consts.httpStatusCode.Ok) {
         dispatch({type: SIGNUP, payload: request.data});
       }
 
       return true;
     } catch (error) {
-      if (error.response.status == consts.httpStatusCode.BadRequest) {
+      if (error.response.status == Consts.httpStatusCode.BadRequest) {
         Alert.alert(error.response.data);
         return false;
       }
     }
-  };
+
+  }
 }
 
-export function remove() {
-  return async function(dispatch: any, getState: any) {
-    const {user} = getState();
+function signOut() {
+  return async function(dispatch: React.Dispatch<IUserAction>) {
+    dispatch({ type: SIGNOUT });
+  }
+}
+
+function remove() {
+  return async function(dispatch: React.Dispatch<IUserAction>, getState: any) {
+    const { user } = getState();
     try {
-      const request = await api.delete(`/auth/delete/${user.id}`);
+      const request = await userService.remove(user);
 
       if(request.status === 200) {
         dispatch({type: REMOVE});
       }
     } catch (error) {
-      if (error.response.status == consts.httpStatusCode.BadRequest) {
+      if (error.response.status == Consts.httpStatusCode.BadRequest) {
         Alert.alert(error.response.data);
       }
     }
-  };
+  }
+}
+
+export default {
+  signIn,
+  signUp,
+  signOut,
+  remove,
+  SIGNIN,
+  SIGNOUT,
+  SIGNUP,
+  REMOVE,
 }

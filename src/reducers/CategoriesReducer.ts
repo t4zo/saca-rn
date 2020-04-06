@@ -1,14 +1,11 @@
-import {
-  GET_CATEGORIES,
-  GET_CARDS_CATEGORIES,
-} from 'actions/CategoriesAction';
+import categoryAction, { ICategoryAction } from 'actions/CategoryAction';
 
-export default function CategoriesReducer(state = [], {type, payload}: any) {
+export default function CategoriesReducer(state = [], { type, payload }: ICategoryAction) {
   switch (type) {
-    case GET_CATEGORIES:
+    case categoryAction.GET_CATEGORIES:
       return [...payload];
 
-    case GET_CARDS_CATEGORIES:
+    case categoryAction.GET_CARDS_CATEGORIES:
       return [...payload];
 
     default:

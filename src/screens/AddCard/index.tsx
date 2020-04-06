@@ -7,29 +7,33 @@ import {
   TouchableOpacity,
   TextInput
 } from 'react-native';
-import { NavigationInjectedProps, ScrollView } from 'react-navigation';
+import { ScrollView } from 'react-navigation';
+// import { useNavigation } from '@react-navigation/native';
 import Lottie from 'lottie-react-native';
 
-import {sendCard} from 'actions/CardsAction';
+import loadingAction from 'actions/LoadingAction';
+import categoryAction from 'actions/CategoryAction';
+import cardAction from 'actions/CardAction';
 
 import Card from 'models/Card';
-import consts from 'services/consts';
+import Consts from 'utils/Consts';
 import styles from './styles';
-import { setLoading } from 'actions/LoadingAction';
-import { getUserCategories } from 'actions/CategoriesAction';
 import Reducers from 'models/Reducers';
 import User from 'models/User';
 
-export default function Add(props: NavigationInjectedProps) {
+export default function AddCard() {
   const dispatch = useDispatch();
 
   const user = useSelector<Reducers, User>(state => state.user);
   
   const [card, setCard] = useState<Card>(new Card());
   const [sendLoading, setSendLoading] = useState<boolean>(false);
+
+  //const navigation = useNavigation();
   
   return (
-    <ScrollView contentContainerStyle={styles.modalContainer}>
+    // <ScrollView contentContainerStyle={styles.modalContainer}>
+    <View style={styles.modalContainer}>
       <Image
         source={{
           uri: `data:image/${card.ext};base64,${card.base64}`,
@@ -58,7 +62,7 @@ export default function Add(props: NavigationInjectedProps) {
           </TouchableOpacity>
         </View>
         {sendLoading && (<Lottie source={require('assets/animations/loader.json')} autoPlay loop style={styles.loading}/>)}
-    </ScrollView>
+    </View>
   );
 
   function updateCardName(value: string) {
@@ -67,18 +71,18 @@ export default function Add(props: NavigationInjectedProps) {
 
   async function _sendCard() {
     setSendLoading(true);
-    dispatch(setLoading(consts.loading.true));
-    await dispatch(sendCard(card));
-    await dispatch(getUserCategories(user));
-    dispatch(setLoading(consts.loading.false));
+    dispatch(loadingAction.setLoading(loadingAction.SET_LOADING_TRUE));
+    await dispatch(cardAction.send(card));
+    await dispatch(categoryAction.getCategoriesFromUser(user));
+    dispatch(loadingAction.setLoading(loadingAction.SET_LOADING_FALSE));
     setSendLoading(false);
-    props.navigation.navigate(consts.screens.Home);
+    //navigation.navigate(Consts.screens.Home);
   }
 
   function addCard() {
-    props.navigation.navigate(consts.screens.Camera, {
-      card,
-      setCard
-    });
+    // navigation.navigate(Consts.screens.Camera, {
+    //   card,
+    //   setCard
+    // });
   }
 }

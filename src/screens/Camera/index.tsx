@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {withNavigationFocus, NavigationFocusInjectedProps} from 'react-navigation';
-import {RNCamera} from 'react-native-camera';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { RNCamera } from 'react-native-camera';
 import Lottie from 'lottie-react-native';
 
 import styles from './styles';
 
-interface ICamera extends NavigationFocusInjectedProps {}
-
-function Camera({isFocused, navigation}: ICamera) {
+function Camera() {
   const [loading, setLoading] = useState<boolean>(false);
+  
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   return (
     <View style={styles.container}>
@@ -61,4 +62,4 @@ function Camera({isFocused, navigation}: ICamera) {
   }
 }
 
-export default withNavigationFocus(Camera);
+export default Camera;

@@ -1,23 +1,23 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import { withNavigation, NavigationInjectedProps } from 'react-navigation';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import colors from 'styles/colors';
+import Colors from 'utils/Colors';
+import Consts from 'utils/Consts';
 import styles from './styles';
-import consts from 'services/consts';
 
-interface IAdd extends NavigationInjectedProps {}
-
-function Add(props: IAdd) {
+function Add({ screen }: any) {
+  const navigation = useNavigation();
+  
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => (props.navigation.navigate(consts.screens.AddCard))}>
-      <Icon name="plus" size={20} color={colors.white} />
+      onPress={() => navigation.navigate(screen)}>
+      <Icon name="plus" size={20} color={Colors.white} />
     </TouchableOpacity>
   );
 }
 
-export default withNavigation(Add);
+export default Add;

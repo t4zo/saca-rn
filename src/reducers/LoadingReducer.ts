@@ -1,14 +1,13 @@
-import { SET_LOADING_TRUE, SET_LOADING_FALSE } from "actions/LoadingAction";
+import LoadingAction, { ILoadingAction } from "actions/LoadingAction";
 
-export default function CategoriesReducer(state = false, {type, payload}: any) {
+export default function LoadingReducer(state = false, { type, payload }: ILoadingAction) {
+  
   switch (type) {
-    case SET_LOADING_TRUE:
-      return true;
-
-    case SET_LOADING_FALSE:
-      return false;
+    case LoadingAction.SET_LOADING:
+      return payload;
 
     default:
       return state;
-  }
+  };
+
 }

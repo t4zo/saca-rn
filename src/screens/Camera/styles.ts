@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import colors from 'styles/colors';
+import Colors from 'utils/Colors';
 
 export default StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
   capture: {
     flex: 0,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     margin: 20,
     borderRadius: 5,
     paddingVertical: 10,
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     alignSelf: 'flex-end',
   },
   captureText: {
-    color: colors.white,
+    color: Colors.white,
   },
   camera: {
     flex: 0,

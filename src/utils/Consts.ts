@@ -7,8 +7,10 @@ export default {
     Home: 'Home',
     AddCard: 'AddCard',
     Camera: 'Camera',
+    Imagens: 'Imagens',
     Entrar: 'Entrar',
-    Registrar: 'Registrar'
+    Registrar: 'Registrar',
+    Sair: 'Sair'
   },
   httpStatusCode: {
     Ok: 200,

@@ -4,25 +4,26 @@ import {
   Image,
   View,
   ScrollView,
-  Text,
   TextInput,
-  TouchableHighlight,
 } from 'react-native';
 import _ from 'lodash';
 
-import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+// import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {signUp} from 'actions/UserAction';
+import { useDispatch, useSelector } from 'react-redux';
+import userAction from 'actions/UserAction';
 
 import Reducers from 'models/Reducers';
 import User from 'models/User';
 
-import consts from 'services/consts';
+import Consts from 'utils/Consts';
 
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-paper';
 
-function SignUp(props: NavigationInjectedProps) {
+// function SignUp(props: NavigationInjectedProps) {
+function SignUp() {
   const textInput: any = {};
 
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ function SignUp(props: NavigationInjectedProps) {
   const user = useSelector<Reducers, User>(state => state.user);
 
   const [userDTO, setUserDTO] = useState<User>(new User());
+
+  const navigation = useNavigation();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -125,9 +128,9 @@ function SignUp(props: NavigationInjectedProps) {
       </View>
       <View style={styles.buttonContainer}>
         {_.isEmpty(user) && (
-          <TouchableHighlight onPress={_signUp} style={styles.button}>
-            <Text style={styles.buttonText}>Registrar</Text>
-          </TouchableHighlight>
+          <Button icon="login-variant" mode="contained" onPress={_signUp}>
+            Registrar
+          </Button>
         )}
       </View>
     </ScrollView>
@@ -157,11 +160,11 @@ function SignUp(props: NavigationInjectedProps) {
     if (userDTO.password !== userDTO.confirmPassword) {
       Alert.alert('As senhas não conferem');
     } else {
-      const isUserSigningUp = await dispatch(signUp(userDTO));
+      const isUserSigningUp = await dispatch(userAction.signUp(userDTO));
 
       // @ts-ignore
       if(isUserSigningUp) {
-        props.navigation.navigate(consts.screens.Home);
+        navigation.navigate(Consts.screens.Home);
         clearUserDto();
       }
     }
@@ -172,4 +175,4 @@ function SignUp(props: NavigationInjectedProps) {
   }
 }
 
-export default withNavigation(SignUp);
+export default SignUp;
